@@ -1,0 +1,16 @@
+cmake_minimum_required(VERSION 3.27)
+project(CLearning C)
+
+set(CMAKE_C_STANDARD 11)
+
+add_executable(CLearning main.c)
+
+# basic
+add_executable(LinkedListSample basic/linked_list_sample.c)
+
+# standard library
+add_executable(CopyStringSample std_library/copy_string_sample.c)
+
+# multi-thread
+add_executable(ProducerConsumerModel multi_thread/producer_consumer_model.c)
+add_executable(WinThreadSample multi_thread/win_thread_sample.c)
