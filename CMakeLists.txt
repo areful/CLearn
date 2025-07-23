@@ -24,6 +24,7 @@ file(GLOB REGEXP_SOURCES "${REGEXP_SOURCE_DIR}/*.c" "${REGEXP_SOURCE_DIR}/src/*.
 add_executable(RegExpSample ${REGEXP_SOURCES})
 
 # Utf8
-set(UTF8_SOURCE_DIR "utf8")
-file(GLOB UTF8_SOURCES "${UTF8_SOURCE_DIR}/*.c" "${UTF8_SOURCE_DIR}/src/*.h")
-add_executable(Utf8Sample ${UTF8_SOURCES})
+add_executable(Utf8Sample utf8/libutf8_sample.c utf8/libutf8.c utf8/libutf8.h)
+
+# print emojis
+add_executable(PrintEmojis utf8/print_emojis.c)
