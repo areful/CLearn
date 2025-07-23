@@ -10,19 +10,9 @@ int match_char(char pattern, char text) {
     return pattern == text;
 }
 
-// 主匹配函数
-int match(const char *pattern, const char *text) {
-    if (*pattern == '^') {
-        return match_here(pattern + 1, text);
-    }
-    do {
-        if (match_here(pattern, text)) return 1;
-    } while (*text++ != '\0');
-    return 0;
-}
-
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "misc-no-recursion"
+// 匹配当前位置的模式
 int match_here(const char *pattern, const char *text) {
     // 模式为空
     if (*pattern == '\0') return 1;
@@ -58,3 +48,14 @@ int match_here(const char *pattern, const char *text) {
     return 0;
 }
 #pragma clang diagnostic pop
+
+// 主匹配函数
+int match(const char *pattern, const char *text) {
+    if (*pattern == '^') {
+        return match_here(pattern + 1, text);
+    }
+    do {
+        if (match_here(pattern, text)) return 1;
+    } while (*text++ != '\0');
+    return 0;
+}
