@@ -1,11 +1,8 @@
 //
-// Created by arefu on 2025/7/23.
+// Created by areful on 2025/7/23.
 //
 
 #include "regexp.h"
-
-// 检查字符串text是否从起始位置匹配正则表达式pattern
-int match_here(const char *pattern, const char *text);
 
 // 检查单个字符是否匹配
 int match_char(char pattern, char text) {
@@ -24,6 +21,8 @@ int match(const char *pattern, const char *text) {
     return 0;
 }
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "misc-no-recursion"
 int match_here(const char *pattern, const char *text) {
     // 模式为空
     if (*pattern == '\0') return 1;
@@ -58,3 +57,4 @@ int match_here(const char *pattern, const char *text) {
 
     return 0;
 }
+#pragma clang diagnostic pop
