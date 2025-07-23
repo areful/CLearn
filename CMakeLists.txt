@@ -22,3 +22,8 @@ add_executable(Esp8266Sample esp8266/esp8266_sample.c)
 set(REGEXP_SOURCE_DIR "reg_exp")
 file(GLOB REGEXP_SOURCES "${REGEXP_SOURCE_DIR}/*.c" "${REGEXP_SOURCE_DIR}/src/*.h")
 add_executable(RegExpSample ${REGEXP_SOURCES})
+
+# Utf8
+set(UTF8_SOURCE_DIR "utf8")
+file(GLOB UTF8_SOURCES "${UTF8_SOURCE_DIR}/*.c" "${UTF8_SOURCE_DIR}/src/*.h")
+add_executable(Utf8Sample ${UTF8_SOURCES})
