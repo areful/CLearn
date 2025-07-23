@@ -19,7 +19,6 @@ add_executable(WinThreadSample multi_thread/win_thread_sample.c)
 add_executable(Esp8266Sample esp8266/esp8266_sample.c)
 
 # RegExp
-add_executable(RegExpSample
-        reg_exp/regexp_sample.c
-        reg_exp/regexp.c
-        reg_exp/regexp.h)
+set(REGEXP_SOURCE_DIR "reg_exp")
+file(GLOB REGEXP_SOURCES "${REGEXP_SOURCE_DIR}/*.c" "${REGEXP_SOURCE_DIR}/src/*.h")
+add_executable(RegExpSample ${REGEXP_SOURCES})
