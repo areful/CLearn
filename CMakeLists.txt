@@ -78,3 +78,20 @@ add_custom_command(TARGET libserialport_sample POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
         ${CMAKE_SOURCE_DIR}/libserialport_mingw64/bin/libserialport-0.dll
         ${CMAKE_BINARY_DIR})
+
+### openssl sample
+set(OPENSSL_DIR "${CMAKE_SOURCE_DIR}/openssl_mingw64")
+include_directories(${OPENSSL_DIR}/include)
+
+# 2. 导入库
+add_library(ssl STATIC IMPORTED)
+set_target_properties(ssl PROPERTIES IMPORTED_LOCATION ${OPENSSL_DIR}/lib/libssl.dll.a)
+
+add_library(crypto STATIC IMPORTED)
+set_target_properties(crypto PROPERTIES IMPORTED_LOCATION ${OPENSSL_DIR}/lib/libcrypto.dll.a)
+
+add_executable(openssl_sample src/openssl_sample.c)
+target_link_libraries(openssl_sample PRIVATE ssl crypto)
+
+# 4. 运行时 DLL 复制到输出目录
+file(COPY "${OPENSSL_DIR}/bin/" DESTINATION ${CMAKE_BINARY_DIR}/)
