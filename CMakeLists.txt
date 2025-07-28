@@ -3,32 +3,32 @@ project(CLearning C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(CLearning main.c
-        libcurl_sample/libcurl_sample.c)
+### sample
+add_executable(CLearning main.c)
 
-# basic
+### basic
 add_executable(LinkedListSample basic/linked_list_sample.c)
 
-# standard library
+### standard library
 add_executable(CopyStringSample std_library/copy_string_sample.c)
 
-# multi-thread
+### multi-thread
 add_executable(ProducerConsumerModel multi_thread/producer_consumer_model.c)
 add_executable(WinThreadSample multi_thread/win_thread_sample.c)
 
-# esp8266
+### esp8266
 add_executable(Esp8266Sample esp8266/esp8266_sample.c)
 
-# RegExp
+### RegExp
 set(REGEXP_SOURCE_DIR "reg_exp")
 file(GLOB REGEXP_SOURCES "${REGEXP_SOURCE_DIR}/*.c" "${REGEXP_SOURCE_DIR}/src/*.h")
 add_executable(RegExpSample ${REGEXP_SOURCES})
 
-# Utf8
+### Utf8
 add_executable(Utf8Sample utf8/libutf8_sample.c utf8/libutf8.c utf8/libutf8.h)
 
-# print emojis
-add_executable(PrintEmojis utf8/print_emojis.c)
+### print emojis
+add_executable(PrintEmojis src/print_emojis.c)
 
 # cJSON sample
 ################### https://github.com/DaveGamble/cJSON
@@ -37,6 +37,7 @@ set(CJSON_SOURCE_DIR "cJSON")
 file(GLOB CJSON_SOURCE "${CJSON_SOURCE_DIR}/*.c" "${CJSON_SOURCE_DIR}/src/*.h")
 add_executable(CJSONSample ${CJSON_SOURCE})
 
+### libcurl sample
 # 1. 头文件
 include_directories(${CMAKE_SOURCE_DIR}/libcurl_mingw64/include)
 
@@ -47,7 +48,7 @@ set_target_properties(libcurl PROPERTIES
         IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/libcurl_mingw64/bin/libcurl-4.dll)
 
 # 3. 可执行文件
-add_executable(curl_sample libcurl_sample/libcurl_sample.c)
+add_executable(curl_sample src/libcurl_sample.c)
 target_link_libraries(curl_sample PRIVATE libcurl)
 
 # 4. 运行时 DLL 自动复制到可执行文件旁边
@@ -61,3 +62,19 @@ add_custom_command(TARGET curl_sample POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
         ${CMAKE_SOURCE_DIR}/certs/cacert.pem
         ${CMAKE_BINARY_DIR}/certs/cacert.pem)
+
+### libserialport sample
+include_directories(${CMAKE_SOURCE_DIR}/libserialport_mingw64/include)
+add_library(serialport SHARED IMPORTED)
+
+set_target_properties(serialport PROPERTIES
+        IMPORTED_IMPLIB ${CMAKE_SOURCE_DIR}/libserialport_mingw64/lib/libserialport.dll.a
+        IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/libserialport_mingw64/bin/libserialport-0.dll)
+
+add_executable(libserialport_sample src/libserialport_sample.c)
+target_link_libraries(libserialport_sample PRIVATE serialport)
+
+add_custom_command(TARGET libserialport_sample POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_SOURCE_DIR}/libserialport_mingw64/bin/libserialport-0.dll
+        ${CMAKE_BINARY_DIR})

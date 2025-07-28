@@ -2,7 +2,7 @@
 // Created by areful on 2025/7/23.
 //
 #include <stdio.h>
-#include "regexp.h"
+#include "../reg_exp/regexp.h"
 
 int main() {
     // 测试用例
