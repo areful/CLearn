@@ -1,6 +1,13 @@
 //
 // Created by areful on 2025/7/28.
 //
+// # 在项目根新建 certs 目录
+//      mkdir certs
+// # 下载 Mozilla CA bundle（官方长期维护）
+//      curl -L https://curl.se/ca/cacert.pem -o certs/cacert.pem
+// 项目中使用：
+//      curl_easy_setopt(curl, CURLOPT_CAINFO, "certs/cacert.pem");
+//
 #include <stdio.h>
 #include <curl/curl.h>
 
@@ -15,8 +22,7 @@ int main(void) {
     if (h) {
         curl_easy_setopt(h, CURLOPT_CAINFO, "certs/cacert.pem");
 
-//        curl_easy_setopt(h, CURLOPT_URL, "https://httpbin.org/get");
-        curl_easy_setopt(h, CURLOPT_URL, "http://www.baidu.com");
+        curl_easy_setopt(h, CURLOPT_URL, "https://httpbin.org/get");
         curl_easy_setopt(h, CURLOPT_WRITEFUNCTION, write_cb);
         CURLcode rc = curl_easy_perform(h);
         if (rc != CURLE_OK)

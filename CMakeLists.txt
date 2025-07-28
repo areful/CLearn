@@ -55,3 +55,9 @@ add_custom_command(TARGET curl_sample POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
         ${CMAKE_SOURCE_DIR}/libcurl_mingw64/bin/libcurl-4.dll
         ${CMAKE_BINARY_DIR})
+
+#file(COPY "${CMAKE_SOURCE_DIR}/certs/cacert.pem" DESTINATION "${CMAKE_BINARY_DIR}/certs")
+add_custom_command(TARGET curl_sample POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_SOURCE_DIR}/certs/cacert.pem
+        ${CMAKE_BINARY_DIR}/certs/cacert.pem)
