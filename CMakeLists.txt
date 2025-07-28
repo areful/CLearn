@@ -28,3 +28,8 @@ add_executable(Utf8Sample utf8/libutf8_sample.c utf8/libutf8.c utf8/libutf8.h)
 
 # print emojis
 add_executable(PrintEmojis utf8/print_emojis.c)
+
+# cJSON sample
+set(CJSON_SOURCE_DIR "cJSON")
+file(GLOB CJSON_SOURCE "${CJSON_SOURCE_DIR}/*.c" "${CJSON_SOURCE_DIR}/src/*.h")
+add_executable(CJSONSample ${CJSON_SOURCE})
