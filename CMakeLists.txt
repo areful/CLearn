@@ -83,15 +83,28 @@ add_custom_command(TARGET libserialport_sample POST_BUILD
 set(OPENSSL_DIR "${CMAKE_SOURCE_DIR}/openssl_mingw64")
 include_directories(${OPENSSL_DIR}/include)
 
-# 2. 导入库
 add_library(ssl STATIC IMPORTED)
 set_target_properties(ssl PROPERTIES IMPORTED_LOCATION ${OPENSSL_DIR}/lib/libssl.dll.a)
-
 add_library(crypto STATIC IMPORTED)
 set_target_properties(crypto PROPERTIES IMPORTED_LOCATION ${OPENSSL_DIR}/lib/libcrypto.dll.a)
 
 add_executable(openssl_sample src/openssl_sample.c)
 target_link_libraries(openssl_sample PRIVATE ssl crypto)
 
-# 4. 运行时 DLL 复制到输出目录
+file(COPY "${OPENSSL_DIR}/bin/" DESTINATION ${CMAKE_BINARY_DIR}/)
+
+
+### mqtt sample
+#
+# pacman -S mingw-w64-x86_64-paho.mqtt.c
+#
+set(MQTT_DIR "${CMAKE_SOURCE_DIR}/mqttc_mingw64")
+include_directories(${MQTT_DIR}/include)
+
+add_library(mqtt STATIC IMPORTED)
+set_target_properties(mqtt PROPERTIES IMPORTED_LOCATION ${MQTT_DIR}/lib/libpaho-mqtt3c.dll.a)
+
+add_executable(mqtt_sample src/mqtt_sample.c)
+target_link_libraries(mqtt_sample PRIVATE mqtt)
+
 file(COPY "${OPENSSL_DIR}/bin/" DESTINATION ${CMAKE_BINARY_DIR}/)
