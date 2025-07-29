@@ -127,3 +127,18 @@ add_executable(mongoose_sample src/mongoose_webserver_sample.c)
 target_link_libraries(mongoose_sample PRIVATE mongoose)
 
 file(COPY "${MONGOOSE_DIR}/bin/" DESTINATION ${CMAKE_BINARY_DIR}/)
+
+#
+### nettle_mingw64
+#
+# pacman -S mingw-w64-x86_64-nettle
+#
+set(NETTLE_DIR "${CMAKE_SOURCE_DIR}/nettle_mingw64")
+include_directories(${NETTLE_DIR}/include)
+
+add_library(nettle STATIC IMPORTED)
+set_target_properties(nettle PROPERTIES IMPORTED_LOCATION ${NETTLE_DIR}/lib/libnettle.dll.a)
+add_executable(nettle_sample src/nettle_sample.c)
+target_link_libraries(nettle_sample PRIVATE nettle)
+
+file(COPY "${NETTLE_DIR}/bin/" DESTINATION ${CMAKE_BINARY_DIR}/)
