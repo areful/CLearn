@@ -112,3 +112,18 @@ add_executable(mqtt_as_sample src/mqtt_as_sample.c)
 target_link_libraries(mqtt_as_sample PRIVATE mqtt_as)
 
 file(COPY "${MQTT_DIR}/bin/" DESTINATION ${CMAKE_BINARY_DIR}/)
+
+#
+### mongoose_mingw64
+#
+# pacman -S mingw-w64-ucrt-x86_64-mongoose_mingw64
+#
+set(MONGOOSE_DIR "${CMAKE_SOURCE_DIR}/mongoose_mingw64")
+include_directories(${MONGOOSE_DIR}/include)
+
+add_library(mongoose STATIC IMPORTED)
+set_target_properties(mongoose PROPERTIES IMPORTED_LOCATION ${MONGOOSE_DIR}/lib/libmongoose.dll.a)
+add_executable(mongoose_sample src/mongoose_webserver_sample.c)
+target_link_libraries(mongoose_sample PRIVATE mongoose)
+
+file(COPY "${MONGOOSE_DIR}/bin/" DESTINATION ${CMAKE_BINARY_DIR}/)

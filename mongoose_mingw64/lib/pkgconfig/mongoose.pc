@@ -1,0 +1,11 @@
+prefix=/ucrt64
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+ 
+Name: mongoose
+Description: embedded library, to start a web server in few lines of code
+Version: 7.16
+Requires: libssl
+Libs: -L${libdir} -lmongoose
+Cflags: -I${includedir} -pthread
