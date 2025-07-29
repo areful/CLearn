@@ -103,8 +103,12 @@ include_directories(${MQTT_DIR}/include)
 
 add_library(mqtt STATIC IMPORTED)
 set_target_properties(mqtt PROPERTIES IMPORTED_LOCATION ${MQTT_DIR}/lib/libpaho-mqtt3c.dll.a)
-
 add_executable(mqtt_sample src/mqtt_sample.c)
 target_link_libraries(mqtt_sample PRIVATE mqtt)
 
-file(COPY "${OPENSSL_DIR}/bin/" DESTINATION ${CMAKE_BINARY_DIR}/)
+add_library(mqtt_as STATIC IMPORTED)
+set_target_properties(mqtt_as PROPERTIES IMPORTED_LOCATION ${MQTT_DIR}/lib/libpaho-mqtt3as.dll.a)
+add_executable(mqtt_as_sample src/mqtt_as_sample.c)
+target_link_libraries(mqtt_as_sample PRIVATE mqtt_as)
+
+file(COPY "${MQTT_DIR}/bin/" DESTINATION ${CMAKE_BINARY_DIR}/)
