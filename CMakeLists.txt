@@ -138,7 +138,10 @@ include_directories(${NETTLE_DIR}/include)
 
 add_library(nettle STATIC IMPORTED)
 set_target_properties(nettle PROPERTIES IMPORTED_LOCATION ${NETTLE_DIR}/lib/libnettle.dll.a)
+
 add_executable(nettle_sample src/nettle_sample.c)
 target_link_libraries(nettle_sample PRIVATE nettle)
+add_executable(nettle_aes_sample src/nettle_aes_sample.c)
+target_link_libraries(nettle_aes_sample PRIVATE nettle)
 
 file(COPY "${NETTLE_DIR}/bin/" DESTINATION ${CMAKE_BINARY_DIR}/)
