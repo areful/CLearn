@@ -21,11 +21,9 @@ add_executable(Esp8266Sample esp8266/esp8266_sample.c)
 
 ### RegExp
 set(REGEXP_SOURCE_DIR "${CMAKE_SOURCE_DIR}/third_party_libs/reg_exp")
+aux_source_directory(${REGEXP_SOURCE_DIR} REGEXP_SRC_LIST)
 add_executable(RegExpSample src/regexp_sample.c)
-target_sources(RegExpSample PRIVATE
-        ${REGEXP_SOURCE_DIR}/regexp.c
-        ${REGEXP_SOURCE_DIR}/regexp.h
-)
+target_sources(RegExpSample PRIVATE ${REGEXP_SRC_LIST})
 target_include_directories(RegExpSample PRIVATE ${REGEXP_SOURCE_DIR})
 
 ### Utf8
@@ -39,11 +37,9 @@ add_executable(PrintEmojis src/print_emojis.c)
 ################### https://github.com/DaveGamble/cJSON
 #
 set(CJSON_SOURCE_DIR "${CMAKE_SOURCE_DIR}/third_party_libs/cJSON")
+aux_source_directory(${CJSON_SOURCE_DIR} CJSON_SRC_LIST)
 add_executable(cJSONSample src/cJSON_sample.c)
-target_sources(cJSONSample PRIVATE
-        ${CJSON_SOURCE_DIR}/cJSON.c
-        ${CJSON_SOURCE_DIR}/cJSON_Utils.c
-)
+target_sources(cJSONSample PRIVATE ${CJSON_SRC_LIST})
 target_include_directories(cJSONSample PRIVATE ${CJSON_SOURCE_DIR})
 
 ### libcurl sample
