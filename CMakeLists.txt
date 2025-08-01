@@ -7,17 +7,17 @@ set(CMAKE_C_STANDARD 11)
 add_executable(CLearning main.c)
 
 ### basic
-add_executable(LinkedListSample basic/linked_list_sample.c)
+add_executable(LinkedListSample src/linked_list_sample.c)
 
 ### standard library
-add_executable(CopyStringSample std_library/copy_string_sample.c)
+add_executable(CopyStringSample src/copy_string_sample.c)
 
 ### multi-thread
-add_executable(ProducerConsumerModel multi_thread/producer_consumer_model.c)
-add_executable(WinThreadSample multi_thread/win_thread_sample.c)
+add_executable(ProducerConsumerModel src/multi_thread/producer_consumer_model.c)
+add_executable(WinThreadSample src/multi_thread/win_thread_sample.c)
 
 ### esp8266
-add_executable(Esp8266Sample esp8266/esp8266_sample.c)
+add_executable(Esp8266Sample src/esp8266_sample.c)
 
 ### RegExp
 set(REGEXP_SOURCE_DIR "${CMAKE_SOURCE_DIR}/third_party_libs/reg_exp")
@@ -27,7 +27,11 @@ target_sources(RegExpSample PRIVATE ${REGEXP_SRC_LIST})
 target_include_directories(RegExpSample PRIVATE ${REGEXP_SOURCE_DIR})
 
 ### Utf8
-add_executable(Utf8Sample utf8/libutf8_sample.c utf8/libutf8.c utf8/libutf8.h)
+set(UTF8_SOURCE_DIR "${CMAKE_SOURCE_DIR}/third_party_libs/utf8")
+aux_source_directory(${UTF8_SOURCE_DIR} UTF8_SRC_LIST)
+add_executable(Utf8Sample src/libutf8_sample.c)
+target_sources(Utf8Sample PRIVATE ${UTF8_SRC_LIST})
+target_include_directories(Utf8Sample PRIVATE ${UTF8_SOURCE_DIR})
 
 ### print emojis
 add_executable(PrintEmojis src/print_emojis.c)

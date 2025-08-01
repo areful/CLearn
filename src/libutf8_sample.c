@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
-#include "libutf8.h"
+#include <libutf8.h>
 
 // 示例：处理字符串
 int main() {
