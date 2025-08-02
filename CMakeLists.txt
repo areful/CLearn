@@ -20,14 +20,14 @@ add_executable(WinThreadSample src/multi_thread/win_thread_sample.c)
 add_executable(Esp8266Sample src/esp8266_sample.c)
 
 ### RegExp
-set(REGEXP_SOURCE_DIR "${CMAKE_SOURCE_DIR}/third_party_libs/reg_exp")
+set(REGEXP_SOURCE_DIR "${CMAKE_SOURCE_DIR}/libs/reg_exp")
 aux_source_directory(${REGEXP_SOURCE_DIR} REGEXP_SRC_LIST)
 add_executable(RegExpSample src/regexp_sample.c)
 target_sources(RegExpSample PRIVATE ${REGEXP_SRC_LIST})
 target_include_directories(RegExpSample PRIVATE ${REGEXP_SOURCE_DIR})
 
 ### Utf8
-set(UTF8_SOURCE_DIR "${CMAKE_SOURCE_DIR}/third_party_libs/utf8")
+set(UTF8_SOURCE_DIR "${CMAKE_SOURCE_DIR}/libs/utf8")
 aux_source_directory(${UTF8_SOURCE_DIR} UTF8_SRC_LIST)
 add_executable(Utf8Sample src/libutf8_sample.c)
 target_sources(Utf8Sample PRIVATE ${UTF8_SRC_LIST})
@@ -37,17 +37,25 @@ target_include_directories(Utf8Sample PRIVATE ${UTF8_SOURCE_DIR})
 add_executable(PrintEmojis src/print_emojis.c)
 
 
-# cJSON sample
-################### https://github.com/DaveGamble/cJSON
 #
-set(CJSON_SOURCE_DIR "${CMAKE_SOURCE_DIR}/third_party_libs/cJSON")
+# cJSON sample
+# https://github.com/DaveGamble/cJSON
+#
+#
+#
+set(CJSON_SOURCE_DIR "${CMAKE_SOURCE_DIR}/libs/cJSON")
 aux_source_directory(${CJSON_SOURCE_DIR} CJSON_SRC_LIST)
 add_executable(cJSONSample src/cJSON_sample.c)
 target_sources(cJSONSample PRIVATE ${CJSON_SRC_LIST})
 target_include_directories(cJSONSample PRIVATE ${CJSON_SOURCE_DIR})
 
+
+#
 ### libcurl sample
-set(LIBCURL_DIR "${CMAKE_SOURCE_DIR}/third_party_libs/libcurl_mingw64")
+#
+#
+#
+set(LIBCURL_DIR "${CMAKE_SOURCE_DIR}/libs/libcurl_mingw64")
 
 add_library(libcurl SHARED IMPORTED)
 set_target_properties(libcurl PROPERTIES
@@ -70,8 +78,12 @@ add_custom_command(TARGET curl_sample POST_BUILD
         ${CMAKE_BINARY_DIR}/certs/cacert.pem)
 
 
+#
 ### libserialport sample
-set(LIBSERIAL_PORT_DIR "${CMAKE_SOURCE_DIR}/third_party_libs/libserialport_mingw64")
+#
+#
+#
+set(LIBSERIAL_PORT_DIR "${CMAKE_SOURCE_DIR}/libs/libserialport_mingw64")
 add_library(serialport SHARED IMPORTED)
 
 set_target_properties(serialport PROPERTIES
@@ -88,8 +100,12 @@ add_custom_command(TARGET libserialport_sample POST_BUILD
         ${CMAKE_BINARY_DIR})
 
 
+#
 ### openssl sample
-set(OPENSSL_DIR "${CMAKE_SOURCE_DIR}/third_party_libs/openssl_mingw64")
+#
+#
+#
+set(OPENSSL_DIR "${CMAKE_SOURCE_DIR}/libs/openssl_mingw64")
 
 add_library(ssl STATIC IMPORTED)
 set_target_properties(ssl PROPERTIES IMPORTED_LOCATION ${OPENSSL_DIR}/lib/libssl.dll.a)
@@ -103,11 +119,12 @@ target_link_libraries(openssl_sample PRIVATE ssl crypto)
 file(COPY "${OPENSSL_DIR}/bin/" DESTINATION ${CMAKE_BINARY_DIR}/)
 
 
+#
 ### mqtt sample
 #
 # pacman -S mingw-w64-x86_64-paho.mqtt.c
 #
-set(MQTT_DIR "${CMAKE_SOURCE_DIR}/third_party_libs/mqttc_mingw64")
+set(MQTT_DIR "${CMAKE_SOURCE_DIR}/libs/mqttc_mingw64")
 
 add_library(mqtt STATIC IMPORTED)
 set_target_properties(mqtt PROPERTIES IMPORTED_LOCATION ${MQTT_DIR}/lib/libpaho-mqtt3c.dll.a)
@@ -129,7 +146,7 @@ file(COPY "${MQTT_DIR}/bin/" DESTINATION ${CMAKE_BINARY_DIR}/)
 #
 # pacman -S mingw-w64-ucrt-x86_64-mongoose_mingw64
 #
-set(MONGOOSE_DIR "${CMAKE_SOURCE_DIR}/third_party_libs/mongoose_mingw64")
+set(MONGOOSE_DIR "${CMAKE_SOURCE_DIR}/libs/mongoose_mingw64")
 
 add_library(mongoose STATIC IMPORTED)
 set_target_properties(mongoose PROPERTIES IMPORTED_LOCATION ${MONGOOSE_DIR}/lib/libmongoose.dll.a)
@@ -145,7 +162,7 @@ file(COPY "${MONGOOSE_DIR}/bin/" DESTINATION ${CMAKE_BINARY_DIR}/)
 #
 # pacman -S mingw-w64-x86_64-nettle
 #
-set(NETTLE_DIR "${CMAKE_SOURCE_DIR}/third_party_libs/nettle_mingw64")
+set(NETTLE_DIR "${CMAKE_SOURCE_DIR}/libs/nettle_mingw64")
 
 add_library(nettle STATIC IMPORTED)
 set_target_properties(nettle PROPERTIES IMPORTED_LOCATION ${NETTLE_DIR}/lib/libnettle.dll.a)
