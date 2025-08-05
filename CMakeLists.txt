@@ -19,6 +19,9 @@ add_executable(WinThreadSample src/multi_thread/win_thread_sample.c)
 ### esp8266
 add_executable(Esp8266Sample src/esp8266_sample.c)
 
+### callback sample
+add_executable(CallbackSample src/callback_sample.c)
+
 ### RegExp
 set(REGEXP_SOURCE_DIR "${CMAKE_SOURCE_DIR}/libs/reg_exp")
 aux_source_directory(${REGEXP_SOURCE_DIR} REGEXP_SRC_LIST)
