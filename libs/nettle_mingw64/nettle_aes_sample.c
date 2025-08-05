@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <nettle/aes.h>
-#include <nettle/cbc.h>
+#include "nettle/aes.h"
+#include "nettle/cbc.h"
 
 void print_hex(const char* label, const uint8_t* data, size_t length) {
     printf("%s: ", label);
