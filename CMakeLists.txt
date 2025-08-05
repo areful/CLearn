@@ -56,70 +56,19 @@ target_include_directories(cJSONSample PRIVATE ${CJSON_SOURCE_DIR})
 #
 ### libcurl sample
 #
-#
-#
-set(LIBCURL_DIR "${CMAKE_SOURCE_DIR}/libs/libcurl_mingw64")
-
-add_library(libcurl SHARED IMPORTED)
-set_target_properties(libcurl PROPERTIES
-        IMPORTED_IMPLIB ${LIBCURL_DIR}/lib/libcurl.dll.a
-        IMPORTED_LOCATION ${LIBCURL_DIR}/bin/libcurl-4.dll)
-
-add_executable(curl_sample src/libcurl_sample.c)
-target_include_directories(curl_sample PRIVATE ${LIBCURL_DIR}/include)
-target_link_libraries(curl_sample PRIVATE libcurl)
-
-add_custom_command(TARGET curl_sample POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        ${LIBCURL_DIR}/bin/libcurl-4.dll
-        ${CMAKE_BINARY_DIR})
-
-#file(COPY "${CMAKE_SOURCE_DIR}/certs/cacert.pem" DESTINATION "${CMAKE_BINARY_DIR}/certs")
-add_custom_command(TARGET curl_sample POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        ${CMAKE_SOURCE_DIR}/certs/cacert.pem
-        ${CMAKE_BINARY_DIR}/certs/cacert.pem)
+add_subdirectory(libs/libcurl_mingw64)
 
 
 #
 ### libserialport sample
 #
-#
-#
-set(LIBSERIAL_PORT_DIR "${CMAKE_SOURCE_DIR}/libs/libserialport_mingw64")
-add_library(serialport SHARED IMPORTED)
-
-set_target_properties(serialport PROPERTIES
-        IMPORTED_IMPLIB ${LIBSERIAL_PORT_DIR}/lib/libserialport.dll.a
-        IMPORTED_LOCATION ${LIBSERIAL_PORT_DIR}/bin/libserialport-0.dll)
-
-add_executable(libserialport_sample src/libserialport_sample.c)
-target_include_directories(libserialport_sample PRIVATE ${LIBSERIAL_PORT_DIR}/include)
-target_link_libraries(libserialport_sample PRIVATE serialport)
-
-add_custom_command(TARGET libserialport_sample POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        ${LIBSERIAL_PORT_DIR}/bin/libserialport-0.dll
-        ${CMAKE_BINARY_DIR})
+add_subdirectory(libs/libserialport_mingw64)
 
 
 #
 ### openssl sample
 #
-#
-#
-set(OPENSSL_DIR "${CMAKE_SOURCE_DIR}/libs/openssl_mingw64")
-
-add_library(ssl STATIC IMPORTED)
-set_target_properties(ssl PROPERTIES IMPORTED_LOCATION ${OPENSSL_DIR}/lib/libssl.dll.a)
-add_library(crypto STATIC IMPORTED)
-set_target_properties(crypto PROPERTIES IMPORTED_LOCATION ${OPENSSL_DIR}/lib/libcrypto.dll.a)
-
-add_executable(openssl_sample src/openssl_sample.c)
-target_include_directories(openssl_sample PRIVATE ${OPENSSL_DIR}/include)
-target_link_libraries(openssl_sample PRIVATE ssl crypto)
-
-file(COPY "${OPENSSL_DIR}/bin/" DESTINATION ${CMAKE_BINARY_DIR}/)
+add_subdirectory(libs/openssl_mingw64)
 
 
 #
