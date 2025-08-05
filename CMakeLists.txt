@@ -16,6 +16,9 @@ add_executable(CopyStringSample src/copy_string_sample.c)
 add_executable(ProducerConsumerModel src/multi_thread/producer_consumer_model.c)
 add_executable(WinThreadSample src/multi_thread/win_thread_sample.c)
 
+### threads_c11_sample
+add_executable(ThreadsC11Sample src/multi_thread/threads_c11_sample.c src/multi_thread/threads_c11.h)
+
 ### esp8266
 add_executable(Esp8266Sample src/esp8266_sample.c)
 
