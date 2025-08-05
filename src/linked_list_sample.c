@@ -2,71 +2,161 @@
 #include <stdlib.h>
 
 // 定义链表节点结构体
-struct Node {
+typedef struct Node {
     int data;
-    struct Node* next;
-};
+    struct Node *next;
+} Node;
 
-// 在链表末尾插入新节点
-void append(struct Node** head_ref, int new_data) {
-    // 为新节点分配内存
-    struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
-    struct Node* last = *head_ref; // 用于遍历链表找到最后一个节点
+// 定义链表结构体
+typedef struct {
+    Node *head;
+} LinkedList;
 
-    // 设置新节点的数据
-    new_node->data = new_data;
-    new_node->next = NULL;
+// 初始化链表
+void initList(LinkedList *list) {
+    list->head = NULL;
+}
 
-    // 如果链表为空，则将新节点作为头节点
-    if (*head_ref == NULL) {
-        *head_ref = new_node;
+// 插入节点到链表头部
+void insertFront(LinkedList *list, int data) {
+    Node *newNode = (Node *) malloc(sizeof(Node));
+    if (!newNode) {
+        printf("Memory allocation failed!\n");
+        return;
+    }
+    newNode->data = data;
+    newNode->next = list->head;
+    list->head = newNode;
+}
+
+// 插入节点到链表尾部
+void insertBack(LinkedList *list, int data) {
+    Node *newNode = (Node *) malloc(sizeof(Node));
+    if (!newNode) {
+        printf("Memory allocation failed!\n");
+        return;
+    }
+    newNode->data = data;
+    newNode->next = NULL;
+
+    if (list->head == NULL) {
+        list->head = newNode;
         return;
     }
 
-    // 否则找到链表的最后一个节点，并将新节点连接到其后
-    while (last->next != NULL) {
-        last = last->next;
+    Node *current = list->head;
+    while (current->next != NULL) {
+        current = current->next;
     }
-    last->next = new_node;
+    current->next = newNode;
+}
+
+// 删除头部节点
+void deleteFront(LinkedList *list) {
+    if (list->head == NULL) {
+        printf("List is empty, cannot delete front node\n");
+        return;
+    }
+
+    Node *temp = list->head;
+    list->head = list->head->next;
+    free(temp);
+}
+
+// 删除尾部节点
+void deleteBack(LinkedList *list) {
+    if (list->head == NULL) {
+        printf("List is empty, cannot delete back node\n");
+        return;
+    }
+
+    if (list->head->next == NULL) {
+        free(list->head);
+        list->head = NULL;
+        return;
+    }
+
+    Node *current = list->head;
+    Node *prev = NULL;
+    while (current->next != NULL) {
+        prev = current;
+        current = current->next;
+    }
+    if (prev != NULL) {
+        prev->next = NULL;
+    }
+    free(current);
+}
+
+// 删除指定数据的节点
+void deleteNode(LinkedList *list, int data) {
+    Node *current = list->head;
+    Node *prev = NULL;
+
+    while (current != NULL && current->data != data) {
+        prev = current;
+        current = current->next;
+    }
+
+    if (current == NULL) {
+        printf("Node with data %d not found\n", data);
+        return;
+    }
+
+    if (prev == NULL) {
+        list->head = current->next;
+    } else {
+        prev->next = current->next;
+    }
+    free(current);
+}
+
+// 遍历打印链表
+void printList(LinkedList *list) {
+    Node *current = list->head;
+    printf("List: ");
+    while (current != NULL) {
+        printf("%d -> ", current->data);
+        current = current->next;
+    }
+    printf("NULL\n");
 }
 
 // 释放链表内存
-void free_list(struct Node* head) {
-    struct Node* current = head;
-    struct Node* next;
-
-    // 遍历链表并释放每个节点的内存
+void freeList(LinkedList *list) {
+    Node *current = list->head;
     while (current != NULL) {
-        next = current->next; // 保存下一个节点的指针
-        free(current); // 释放当前节点的内存
-        current = next; // 移动到下一个节点
+        Node *temp = current;
+        current = current->next;
+        free(temp);
     }
-}
-
-// 打印链表的内容
-void print_list(struct Node* node) {
-    while (node != NULL) {
-        printf("%d ", node->data);
-        node = node->next;
-    }
-    printf("\n");
+    list->head = NULL;
 }
 
 int main() {
-    struct Node* head = NULL; // 链表头指针
+    LinkedList list;
+    initList(&list);
 
-    // 在链表末尾插入节点
-    append(&head, 1);
-    append(&head, 2);
-    append(&head, 3);
-    append(&head, 4);
+    // 测试插入操作
+    insertFront(&list, 1);
+    insertBack(&list, 3);
+    insertFront(&list, 0);
+    insertBack(&list, 4);
+    printList(&list); // 输出: List: 0 -> 1 -> 3 -> 4 -> NULL
 
-    // 打印链表内容
-    printf("Linked List: ");
-    print_list(head);
+    // 测试删除操作
+    deleteNode(&list, 1);
+    printList(&list); // 输出: List: 0 -> 3 -> 4 -> NULL
 
-    // 释放链表内存
-    free_list(head);
+    deleteFront(&list);
+    printList(&list); // 输出: List: 3 -> 4 -> NULL
+
+    deleteBack(&list);
+    printList(&list); // 输出: List: 3 -> NULL
+
+    // 释放链表
+    freeList(&list);
+    printList(&list); // 输出: List: NULL
 
     return 0;
 }
