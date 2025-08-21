@@ -55,6 +55,12 @@ add_subdirectory(libs/libcurl_mingw64)
 
 
 #
+### libportaudio sample
+#
+add_subdirectory(libs/libportaudio_mingw64)
+
+
+#
 ### libserialport sample
 #
 add_subdirectory(libs/libserialport_mingw64)
