@@ -2,7 +2,10 @@
 // Created by areful on 2025/7/23.
 //
 #include <stdio.h>
-#include <windows.h> // Windows 下设置 UTF-8 编码
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 // 将 Unicode 码点转换为 UTF-8 编码
 void print_utf8(int codepoint) {
@@ -28,8 +31,8 @@ void print_utf8(int codepoint) {
 }
 
 int main() {
-    // Windows 设置控制台为 UTF-8（Linux/macOS 通常无需此步骤）
 #ifdef _WIN32
+    // Windows 设置控制台为 UTF-8（Linux/macOS 通常无需此步骤）
     SetConsoleOutputCP(65001);
 #endif
 

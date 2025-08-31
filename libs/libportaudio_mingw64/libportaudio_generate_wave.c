@@ -6,6 +6,10 @@
 #include <math.h>
 #include <stdint.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #define SAMPLE_RATE 44100
 #define CHANNELS 2
 #define DURATION 2.0
@@ -30,6 +34,11 @@ typedef struct {
 } WavHeader;
 
 int main() {
+#ifdef _WIN32
+    // Windows 设置控制台为 UTF-8（Linux/macOS 通常无需此步骤）
+    SetConsoleOutputCP(65001);
+#endif
+
     FILE *file = fopen("audio.wav", "wb");
     if (!file) {
         fprintf(stderr, "无法创建音频文件\n");

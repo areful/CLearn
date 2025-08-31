@@ -7,6 +7,10 @@
 #include <string.h>
 #include <stdint.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 // WAV 头部结构
 typedef struct {
     char chunkId[4];        // "RIFF"
@@ -54,6 +58,11 @@ static int audioCallback(const void *inputBuffer, void *outputBuffer,
 }
 
 int main() {
+#ifdef _WIN32
+    // Windows 设置控制台为 UTF-8（Linux/macOS 通常无需此步骤）
+    SetConsoleOutputCP(65001);
+#endif
+
     PaError err;
     PaStream *stream;
     PaStreamParameters outputParameters;

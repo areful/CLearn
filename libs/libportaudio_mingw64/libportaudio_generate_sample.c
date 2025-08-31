@@ -12,7 +12,16 @@
 #define FREQUENCY 440.0 // 频率（Hz，A4音）
 #define AMPLITUDE 32760 // 16-bit PCM 最大幅度
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 int main() {
+#ifdef _WIN32
+    // Windows 设置控制台为 UTF-8（Linux/macOS 通常无需此步骤）
+    SetConsoleOutputCP(65001);
+#endif
+
     FILE *file = fopen("audio.bin", "wb");
     if (!file) {
         fprintf(stderr, "无法创建音频文件\n");

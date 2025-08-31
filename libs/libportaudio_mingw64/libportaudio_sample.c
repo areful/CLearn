@@ -7,6 +7,10 @@
 #include <string.h>
 #include <stdint.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #define SAMPLE_RATE 44100
 #define CHANNELS 2
 #define SAMPLE_FORMAT paInt16 // 16-bit PCM
@@ -42,6 +46,11 @@ static int audioCallback(const void *inputBuffer, void *outputBuffer,
 }
 
 int main() {
+#ifdef _WIN32
+    // Windows 设置控制台为 UTF-8（Linux/macOS 通常无需此步骤）
+    SetConsoleOutputCP(65001);
+#endif
+
     PaError err;
     PaStream *stream;
     PaStreamParameters outputParameters;
