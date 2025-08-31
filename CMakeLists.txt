@@ -67,6 +67,12 @@ add_subdirectory(libs/libserialport_mingw64)
 
 
 #
+### libsdl2 sample
+#
+add_subdirectory(libs/libsdl2_mingw64)
+
+
+#
 ### openssl sample
 #
 add_subdirectory(libs/openssl_mingw64)
