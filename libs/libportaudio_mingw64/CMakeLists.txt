@@ -34,3 +34,17 @@ add_custom_command(TARGET libportaudio_sample POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
         ${LIBPORTAUDIO_DIR}/bin/libportaudio.dll
         ${CMAKE_BINARY_DIR}/libs/libportaudio_mingw64)
+
+#
+### libportaudio_generate_wave
+#
+add_executable(libportaudio_generate_wave libportaudio_generate_wave.c)
+target_include_directories(libportaudio_generate_wave PRIVATE ${LIBPORTAUDIO_DIR}/include)
+target_link_libraries(libportaudio_generate_wave PRIVATE portaudio)
+
+#
+### libportaudio_wave
+#
+add_executable(libportaudio_wave libportaudio_wave.c)
+target_include_directories(libportaudio_wave PRIVATE ${LIBPORTAUDIO_DIR}/include)
+target_link_libraries(libportaudio_wave PRIVATE portaudio)
